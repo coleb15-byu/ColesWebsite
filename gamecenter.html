@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Center</title>
+  <style>
+    nav {
+        margin-top: 0.5em;
+        }
+
+        .home-link {
+        display: inline-block;
+        padding: 0.5em 1em;
+        background-color: #3BCEAC;
+        color: #333333;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        }
+        .home-link:hover {
+        background-color: #32b49e;
+    }
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      background-color: #F0DCCA;
+      color: #333333;
+    }
+
+    header {
+      background-color: #C37D92;
+      color: #333333;
+      padding: 1em;
+    }
+
+    #game-container {
+      margin: 2em auto;
+    }
+
+    button {
+      margin: 0.5em;
+      padding: 1em;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #3BCEAC;
+      border: none;
+      color: #333333;
+    }
+
+    #game-display {
+      margin-top: 2em;
+      padding: 1em;
+      border: 1px solid #0EAD69;
+      background-color: #F0DCCA;
+    }
+
+    canvas {
+      border: 1px solid #0EAD69;
+      background-color: #F0DCCA;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .grid div {
+      width: 100px;
+      height: 100px;
+      background-color: #C37D92;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      color: #333333;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card {
+      width: 50px;
+      height: 50px;
+      background-color: #ccc;
+      display: inline-block;
+      margin: 5px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .card.hidden {
+      background-color: #C37D92;
+      color: #C37D92;
+    }
+
+    .card.visible {
+      background-color: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Cole's Game Center!</h1>
+    <nav>
+        <a href="colespage.html" class="home-link">Back To Cole's Website</a>
+    </nav>
+  </header>
+  <main>
+    <div id="game-container">
+      <button onclick="startGame('snake')">Snake Game</button>
+      <button onclick="startGame('memory')">Memory Match</button>
+      <button onclick="startGame('ticTacToe')">Tic-Tac-Toe</button>
+    </div>
+    <div id="game-display"></div>
+  </main>
+  <script>
+    function startGame(game) {
+      const gameDisplay = document.getElementById('game-display');
+      gameDisplay.innerHTML = '';
+
+      switch (game) {
+        case 'snake':
+          gameDisplay.innerHTML = `
+            <h2>Snake Game</h2>
+            <p>Press any arrow key to begin!</p>
+            <canvas id="snake-game" width="400" height="400"></canvas>
+          `;
+          initSnakeGame();
+          break;
+
+        case 'memory':
+          gameDisplay.innerHTML = `
+            <h2>Memory Match</h2>
+            <div>
+              <p>Score: <span id="score">0</span> | Time left: <span id="timer">60</span>s</p>
+              <button id="start-memory">Start Memory Game</button>
+              <button id="restart-memory">Restart</button>
+            </div>
+            <div id="memory-game" class="grid"></div>
+          `;
+          setTimeout(() => {
+            document.getElementById('start-memory').addEventListener('click', () => initMemoryGame());
+            document.getElementById('restart-memory').addEventListener('click', () => initMemoryGame());
+          }, 0);
+          break;
+
+        case 'ticTacToe':
+          gameDisplay.innerHTML = `
+            <h2>Tic-Tac-Toe</h2>
+            <p>Play against another player. First to align three wins!</p>
+            <div id="tic-tac-toe" class="grid" style="grid-template-columns: repeat(3, 100px);"></div>
+            <button id="restart-tic-tac-toe">Restart Game</button>
+          `;
+          setTimeout(() => {
+            initTicTacToe();
+            document.getElementById('restart-tic-tac-toe').addEventListener('click', () => initTicTacToe());
+          }, 0);
+          break;
+
+        default:
+          gameDisplay.innerHTML = '<h2>Select a game to start playing!</h2>';
+      }
+    }
+
+    function initSnakeGame() {
+      const canvas = document.getElementById('snake-game');
+      const ctx = canvas.getContext('2d');
+      let snake = [{ x: 200, y: 200 }];
+      let direction = null;
+      let food = { x: Math.floor(Math.random() * 20) * 20, y: Math.floor(Math.random() * 20) * 20 };
+      let gameInterval;
+      let score = 0;
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'green';
+        snake.forEach(segment => ctx.fillRect(segment.x, segment.y, 20, 20));
+        ctx.fillStyle = 'red';
+        ctx.fillRect(food.x, food.y, 20, 20);
+      }
+
+      function update() {
+        const head = { x: snake[0].x, y: snake[0].y };
+        switch (direction) {
+          case 'right': head.x += 20; break;
+          case 'left': head.x -= 20; break;
+          case 'up': head.y -= 20; break;
+          case 'down': head.y += 20; break;
+        }
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+          food = { x: Math.floor(Math.random() * 20) * 20, y: Math.floor(Math.random() * 20) * 20 };
+          score++;
+        } else {
+          snake.pop();
+        }
+        if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+          clearInterval(gameInterval);
+          alert('Game Over. Your score: ' + score);
+        }
+      }
+
+      function changeDirection(event) {
+        if (!direction) {
+          gameInterval = setInterval(() => {
+            update();
+            draw();
+          }, 100);
+        }
+        switch (event.key) {
+          case 'ArrowUp': if (direction !== 'down') direction = 'up'; break;
+          case 'ArrowDown': if (direction !== 'up') direction = 'down'; break;
+          case 'ArrowLeft': if (direction !== 'right') direction = 'left'; break;
+          case 'ArrowRight': if (direction !== 'left') direction = 'right'; break;
+        }
+      }
+
+      document.addEventListener('keydown', changeDirection);
+    }
+
+    let memoryTimer;
+    function initMemoryGame() {
+      const memoryGame = document.getElementById('memory-game');
+      if (!memoryGame) return;
+
+      memoryGame.innerHTML = '';
+      const cards = ['1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8'];
+      cards.sort(() => 0.5 - Math.random());
+
+      let firstCard = null;
+      let secondCard = null;
+      let score = 0;
+      let matches = 0;
+      let timeLeft = 60;
+
+      document.getElementById('score').textContent = score;
+      document.getElementById('timer').textContent = timeLeft;
+
+      clearInterval(memoryTimer);
+      memoryTimer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(memoryTimer);
+          alert('Time is up! Your score: ' + score);
+        }
+      }, 1000);
+
+      cards.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.textContent = card;
+        cardElement.className = 'card hidden';
+
+        cardElement.addEventListener('click', () => {
+          if (cardElement.classList.contains('visible')) return;
+          if (firstCard && secondCard) return;
+
+          cardElement.classList.remove('hidden');
+          cardElement.classList.add('visible');
+
+          if (!firstCard) {
+            firstCard = cardElement;
+          } else {
+            secondCard = cardElement;
+            if (firstCard.textContent === secondCard.textContent) {
+              score++;
+              matches++;
+              document.getElementById('score').textContent = score;
+              firstCard = null;
+              secondCard = null;
+
+              if (matches === cards.length / 2) {
+                clearInterval(memoryTimer);
+                alert('You win! Final score: ' + score);
+              }
+            } else {
+              setTimeout(() => {
+                firstCard.classList.remove('visible');
+                firstCard.classList.add('hidden');
+                secondCard.classList.remove('visible');
+                secondCard.classList.add('hidden');
+                firstCard = null;
+                secondCard = null;
+              }, 1000);
+            }
+          }
+        });
+
+        memoryGame.appendChild(cardElement);
+      });
+    }
+
+    function initTicTacToe() {
+      const ticTacToe = document.getElementById('tic-tac-toe');
+      ticTacToe.innerHTML = '';
+      const board = Array(9).fill(null);
+      let currentPlayer = 'X';
+
+      board.forEach((_, index) => {
+        const cell = document.createElement('div');
+        cell.addEventListener('click', () => {
+          if (cell.textContent || checkWinner(board)) return;
+          cell.textContent = currentPlayer;
+          board[index] = currentPlayer;
+          if (checkWinner(board)) {
+            alert(`${currentPlayer} wins!`);
+          }
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        });
+        ticTacToe.appendChild(cell);
+      });
+    }
+
+    function checkWinner(board) {
+      const winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+      return winningCombinations.some(combination => {
+        const [a, b, c] = combination;
+        return board[a] && board[a] === board[b] && board[a] === board[c];
+      });
+    }
+  </script>
+</body>
+</html>

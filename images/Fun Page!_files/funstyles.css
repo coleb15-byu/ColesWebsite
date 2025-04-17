@@ -1,0 +1,147 @@
+.default {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+    font-weight: normal;
+    color: #333333;
+    background-color: #F0DCCA;
+}
+
+p {
+    padding: 25px;
+}
+
+nav {
+    background-color: #61A0AF;
+    padding: 25;
+    height: 100px;
+    width: 100%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+div {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 15px;
+}
+
+.jleft {
+    justify-content: left;
+}
+
+.jright {
+    justify-content: right;
+}
+
+.jcenter {
+    justify-content: center;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: #333333;
+    background-color:#61A0AF;
+    margin: 25px;
+}
+p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: #333333;
+}
+li {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: black;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.underline {
+    text-decoration: underline;
+}
+.bold {
+    font-weight: bold;
+}
+.center{text-align: center;}
+.justify{text-align: justify;}
+
+.box1 {
+    border-width: 1px;
+    border-style: solid;
+    background-color: #F0DCCA;
+    border-color: #333333;
+
+    /* border: 1px red; */
+}
+.box2 {
+    padding: 5px;
+}
+/* This box2 method shows padding on the main page */
+.box3 {
+    margin: 10px;
+}
+/* This box3 method shows margin */
+.centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.largemargins {
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+a {
+    color: #C37D92;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #C37D92;
+}
+
+.navboxr {
+    text-align: center;
+    width: 20%;
+    height: 30px;
+    font-size: 23px;
+}
+
+.top-right {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+  }
+
+footer {
+    display: flex;
+    bottom: 10px;
+    justify-content: center;
+    padding: 5px 10px;
+    text-align: center;
+    background-color: #F0DCCA;
+    height: 50px;
+    font-weight: bold;
+    color: #333333;
+    border-width: 1px; 
+    border-color: #333333;
+}
+
+header {
+    display: flex;
+    justify-content: center;   
+    padding: 30px;
+}
+
+.viz-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    width: 100%;
+    padding: 20px 0;
+}
+  
+.tableauPlaceholder {
+    min-width: 1000px; /* or whatever minimum works for your viz */
+}
