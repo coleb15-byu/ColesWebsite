@@ -3,7 +3,7 @@
 $recaptchaSecret = '6LdVNhsrAAAAAK97NGI0YVbIiEqCcRdlLGntsqoG';
 
 // Replace with your email address
-$to = 'ccummings1245@gmail.com';
+$to = 'suckitspammers@spamslam.com';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Honeypot check

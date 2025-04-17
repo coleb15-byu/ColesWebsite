@@ -57,7 +57,8 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
                     <div class="my-5">
-                        <form id="contactForm" action="php/contact.php" method="POST">
+                        <form>  <!--id="contactForm" action="php/contact.php" method="POST"> -->
+                            <!-- This code is hidden so the form doesn't work -->
                             <!-- Honeypot -->
                             <div style="display: none;">
                                 <label for="website">Website</label>
@@ -81,13 +82,17 @@
                                 <label for="message">Message</label>
                             </div>
 
-                            <!-- reCAPTCHA -->
-                            <div class="mb-3">
+                            <!-- reCAPTCHA, if site was working -->
+                            <!-- <div class="mb-3"> -->
                                 <!-- Site Key Here! -->
-                                <div class="g-recaptcha" data-sitekey="6LdVNhsrAAAAALBysANWNE3Alk64ltUmWEH99kGd"></div>
-                            </div>
+                                <!-- <div class="g-recaptcha" data-sitekey="6LdVNhsrAAAAALBysANWNE3Alk64ltUmWEH99kGd"></div> -->
+                            <!-- </div> -->
 
-                            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                            <!-- Old working code: -->
+                            <!-- <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button> -->
+
+                            <!-- New, intentionally broken code -->
+                            <button class="btn btn-primary text-uppercase">Not Supported by Github</button>
                         </form>
                     </div>
                 </div>
