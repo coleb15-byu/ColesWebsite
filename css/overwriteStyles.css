@@ -17,11 +17,11 @@ h3 {
 }
 
 h4 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 h5 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 h6 {
@@ -36,6 +36,10 @@ ul {
     font-weight: normal;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .colorgreen {
     color: darkgreen;
 }
@@ -43,18 +47,32 @@ ul {
 .darkgrey {
     color: rgb(49, 49, 49);
 }
+
 .funfont {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.smallpadding {
-    padding: 5px;
 }
 
 .justifycenter {
     justify-content: center;
 }
 
+.italicized {
+    font-style: italic;
+    font-weight: normal;
+}
+
+.margintoptext {
+    margin-top: 10px;
+}
+
+.normal {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.smallpadding {
+    padding: 5px;
+}
 
 .scroll-container {
     /* width: 300px; Adjust width as needed */
